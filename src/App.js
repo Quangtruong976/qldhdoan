@@ -1,65 +1,49 @@
 import React from "react";
 import "./App.css";
+import logoDoan from "./logo-doan.png"; // nhớ thêm file logo vào thư mục src
+import lamdong from "./lamdong.png";
 
 function App() {
   return (
-    <div style={{ fontFamily: "Arial, sans-serif", padding: "20px" }}>
-      {/* Tiêu đề chính */}
-      <h1 style={{ textAlign: "center", color: "#1976d2" }}>
-        Hệ thống quản lý theo dõi Đại hội Đoàn các cấp tỉnh Lâm Đồng
-      </h1>
+    <div className="App">
+      {/* Header */}
+      <header className="app-header">
+        <img src={logoDoan} alt="Logo Đoàn TNCS Hồ Chí Minh" className="logo" />
+        <h1>Hệ thống Quản lý Đại hội Đoàn</h1>
+      </header>
 
-      {/* Thanh menu */}
-      <nav
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "20px",
-          margin: "20px 0",
-        }}
-      >
-        <a href="/" style={{ textDecoration: "none", color: "#1976d2" }}>
-          Trang chủ
-        </a>
-        <a href="/tien-do" style={{ textDecoration: "none", color: "#1976d2" }}>
-          Tiến độ
-        </a>
-        <a
-          href="/danh-sach"
-          style={{ textDecoration: "none", color: "#1976d2" }}
-        >
-          Danh sách nhân sự
-        </a>
-        <a
-          href="/thong-ke"
-          style={{ textDecoration: "none", color: "#1976d2" }}
-        >
-          Thống kê
-        </a>
+      {/* Navbar */}
+      <nav className="navbar">
+        <ul>
+          <li><a href="#home">Trang chủ</a></li>
+          <li><a href="#progress">Tiến độ</a></li>
+          <li><a href="#report">Báo cáo</a></li>
+          <li><a href="#setting">Đại hội Đoàn cấp tỉnh</a></li>
+          <li><a href="#setting">Đăng nhập</a></li>
+        </ul>
       </nav>
 
-      {/* Nội dung chào mừng */}
-      <div
-        style={{
-          maxWidth: "800px",
-          margin: "0 auto",
-          padding: "20px",
-          border: "1px solid #ddd",
-          borderRadius: "10px",
-          textAlign: "center",
-          backgroundColor: "#f9f9f9",
-        }}
-      >
-        <h2>Chào mừng!</h2>
-        <p>
-          Đây là hệ thống giúp theo dõi tiến độ, kết quả và nhân sự Đại hội
-          </p>
-         <p> Đoàn các cấp, từ tỉnh đến xã phường.
-        </p>
-      </div>
+      {/* Nội dung */}
+      <main className="content">
+        <h2>Chào mừng bạn đến với hệ thống quản lý Đại hội Đoàn</h2>
+        <p>Hãy truy cập vào các nút chức năng để trải nghiệm các tính năng của ứng dụng</p>
+      </main>
+
+
+      <div className="image-wrapper">
+  <img 
+    src={lamdong} 
+    alt="Cảnh đẹp Lâm Đồng" 
+    className="footer-image" 
+  />
+</div>
+
+      {/* Footer */}
+      <footer className="footer">
+        <p>© 2025 Đoàn TNCS Hồ Chí Minh</p>
+      </footer>
     </div>
   );
 }
 
 export default App;
-

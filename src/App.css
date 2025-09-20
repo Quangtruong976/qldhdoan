@@ -1,38 +1,102 @@
+/* Reset mặc định */
+body, html, ul, li, h1, h2, p {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  background-color: #f4faff; /* nền sáng xanh nhẹ */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+/* Header */
+.app-header {
+  background-color: #0066cc; /* xanh dương Đoàn */
   color: white;
+  padding: 20px;
+  border-bottom: 4px solid #5da2e7;
 }
 
-.App-link {
-  color: #61dafb;
+.app-header .logo {
+  height: 80px;
+  margin-bottom: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Navbar */
+.navbar {
+  background-color: #269fdb; /* xanh đậm hơn header */
+  padding: 5px 0;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: 0.3s;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.navbar a:hover {
+  background-color: #0099ff; /* xanh sáng khi hover */
+  color: #fff;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  padding: 30px;
+}
+
+.content h2 {
+  color: #004080;
+  margin-bottom: 15px;
+}
+
+/* Footer */
+.footer {
+  background-color: #0066cc;
+  color: white;
+  padding: 15px;
+}
+
+.footer {
+  background-color: #0066cc;
+  color: white;
+  padding: 15px;
+}
+
+.image-wrapper {
+  position: relative;       /* khung chứa */
+  width: 100%;
+  height: 400px;            /* bạn có thể thay đổi chiều cao */
+  overflow: hidden;
+}
+
+.footer-image {
+  position: absolute;
+  top: 50%;                 /* căn giữa dọc */
+  left: 50%;                /* căn giữa ngang */
+  transform: translate(-50%, -50%);
+  
+  width: 80%;               /* co giãn theo khung */
+  height: auto;             /* giữ tỷ lệ gốc */
+  max-width: 100%;
+  max-height: 100%;
+  
+  object-fit: contain;      /* không bị méo */
+  opacity: 0.3;             /* làm ảnh chìm */
+  z-index: 0;               /* nằm dưới nội dung */
+  pointer-events: none;     /* không che thao tác */
 }
