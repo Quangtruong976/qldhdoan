@@ -62,7 +62,7 @@ function Dashboard() {
           <ResponsiveContainer width="40%" height={250}>
           <BarChart 
     data={dataXa} 
-    barSize={100} 
+    barSize={80} 
     barCategoryGap="0%"  // khoảng cách giữa 2 cột
     barGap={0}            // bỏ khoảng hở bên trong
   >
