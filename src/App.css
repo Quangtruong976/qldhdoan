@@ -1,102 +1,150 @@
-/* Reset mặc định */
-body, html, ul, li, h1, h2, p {
+/* Reset */
+body, html, #root {
   margin: 0;
   padding: 0;
+  height: 100%;
   font-family: Arial, sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
 }
 
-.App {
-  text-align: center;
-  background-color: #f4faff; /* nền sáng xanh nhẹ */
-  min-height: 100vh;
+/* App wrapper */
+.app {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 /* Header */
-.app-header {
-  background-color: #0066cc; /* xanh dương Đoàn */
+.header {
+  background-color: #1e88e5;
   color: white;
-  padding: 20px;
-  border-bottom: 4px solid #5da2e7;
+  text-align: center;
+  padding: 20px 10px;
 }
 
-.app-header .logo {
-  height: 80px;
-  margin-bottom: 10px;
+.header .logo {
+  width: 80px;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px auto;
+}
+
+.header h1 {
+  font-size: 20px;
+  margin: 0;
 }
 
 /* Navbar */
 .navbar {
-  background-color: #269fdb; /* xanh đậm hơn header */
-  padding: 5px 0;
-}
-
-.navbar ul {
-  list-style: none;
+  background-color: #1565c0;
   display: flex;
   justify-content: center;
-  gap: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 10px 0;
 }
 
 .navbar a {
-  text-decoration: none;
   color: white;
-  font-weight: bold;
-  transition: 0.3s;
-  padding: 5px 10px;
-  border-radius: 5px;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .navbar a:hover {
-  background-color: #0099ff; /* xanh sáng khi hover */
-  color: #fff;
+  background-color: #0d47a1;
 }
 
 /* Content */
 .content {
   flex: 1;
-  padding: 30px;
+  padding: 20px;
+  text-align: center; /* Căn giữa nội dung */
 }
 
-.content h2 {
-  color: #004080;
-  margin-bottom: 15px;
+/* Dashboard */
+.dashboard h2 {
+  font-size: 18px;
+  margin: 10px 0;
+  color: #1e88e5;
+}
+
+/* Cards */
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 120px;
+  padding: 15px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+.card h3 {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.card p {
+  font-size: 20px;
+  margin: 0;
+}
+
+.card.xanh {
+  background-color: #1e88e5;
+}
+
+.card.do {
+  background-color: #e53935;
+}
+
+.card.tong {
+  background-color: #43a047;
+}
+
+/* Chart */
+.chart {
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
 }
 
 /* Footer */
 .footer {
-  background-color: #0066cc;
+  background-color: #1e88e5;
   color: white;
-  padding: 15px;
+  text-align: center;
+  padding: 10px;
+  font-size: 13px;
 }
 
-.footer {
-  background-color: #0066cc;
-  color: white;
-  padding: 15px;
-}
+/* Responsive */
+@media (max-width: 600px) {
+  .header h1 {
+    font-size: 16px;
+  }
 
-.image-wrapper {
-  position: relative;       /* khung chứa */
-  width: 100%;
-  height: 400px;            /* bạn có thể thay đổi chiều cao */
-  overflow: hidden;
-}
+  .navbar a {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
 
-.footer-image {
-  position: absolute;
-  top: 50%;                 /* căn giữa dọc */
-  left: 50%;                /* căn giữa ngang */
-  transform: translate(-50%, -50%);
-  
-  width: 80%;               /* co giãn theo khung */
-  height: auto;             /* giữ tỷ lệ gốc */
-  max-width: 100%;
-  max-height: 100%;
-  
-  object-fit: contain;      /* không bị méo */
-  opacity: 0.3;             /* làm ảnh chìm */
-  z-index: 0;               /* nằm dưới nội dung */
-  pointer-events: none;     /* không che thao tác */
+  .dashboard h2 {
+    font-size: 16px;
+  }
+
+  .card {
+    width: 100px;
+    padding: 10px;
+  }
 }
