@@ -1,0 +1,275 @@
+/* Reset */
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+}
+
+/* App wrapper */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  background-color: #1e88e5;
+  color: white;
+  text-align: center;
+  padding: 20px 10px;
+}
+
+.header .logo {
+  width: 80px;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px auto;
+}
+
+.header h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #1565c0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 10px 0;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.navbar a:hover {
+  background-color: #0d47a1;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  padding: 20px;
+  text-align: center; /* Căn giữa nội dung */
+}
+
+/* Dashboard */
+.dashboard h2 {
+  font-size: 18px;
+  margin: 10px 0;
+  color: #1e88e5;
+}
+
+/* Cards */
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 120px;
+  padding: 15px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+.card h3 {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.card p {
+  font-size: 20px;
+  margin: 0;
+}
+
+.card.xanh {
+  background-color: #1e88e5;
+}
+
+.card.do {
+  background-color: #e53935;
+}
+
+.card.tong {
+  background-color: #43a047;
+}
+
+/* Chart */
+.chart {
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* Footer */
+.footer {
+  background-color: #1e88e5;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .header h1 {
+    font-size: 16px;
+  }
+
+  .navbar a {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .dashboard h2 {
+    font-size: 16px;
+  }
+
+  .card {
+    width: 100px;
+    padding: 10px;
+  }
+}
+
+table {
+  width: 90%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+th, td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+input, select {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+button {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  background-color: #1e88e5;
+  color: white;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #1565c0;
+}
+@media (max-width: 600px) {
+  table, th, td {
+    font-size: 12px;
+  }
+  .chart {
+    width: 100%;
+  }
+}
+
+/* ===================== Bổ sung cho bảng Đại hội cấp xã ===================== */
+
+/* Màu nền từng dòng dựa trên trạng thái đã/ chưa tổ chức */
+tr[data-status="da-to-chuc"] {
+  background-color: #c8e6c9; /* xanh nhạt */
+}
+
+tr[data-status="chua-to-chuc"] {
+  background-color: #ffcdd2; /* đỏ nhạt */
+}
+
+/* Nút Sửa */
+button {
+  padding: 4px 8px;
+  margin-left: 5px;
+  background-color: #1e88e5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #1565c0;
+}
+
+/* Checkbox */
+input[type="checkbox"] {
+  transform: scale(1.2);
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+/* Form cập nhật xã (Admin) */
+div[style*="text-align: center"][style*="margin-top: 20px"] input,
+div[style*="text-align: center"][style*="margin-top: 20px"] select {
+  margin: 5px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Button lưu / cập nhật nhiều xã */
+div[style*="text-align: center"][style*="margin-top: 20px"] button,
+div[style*="text-align: center"][style*="margin-top: 10px"] button {
+  margin-top: 5px;
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+/* Input tìm kiếm */
+input[placeholder="Tìm kiếm xã..."] {
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px 6px;
+}
+/* Inline-edit table */
+table input[type="text"],
+table input[type="date"],
+table select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 4px 6px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+table button {
+  padding: 4px 8px;
+  font-size: 13px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+table button:hover {
+  background-color: #1976d2;
+  color: white;
+}
