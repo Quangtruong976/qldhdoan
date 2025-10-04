@@ -43,16 +43,54 @@ function Admin({ user }) {
     <div style={{ textAlign: "center" }}>
       <h2>Quản lý Admin</h2>
       <div style={{ marginBottom: "20px" }}>
-        <button onClick={() => setTab("CapXa")} style={{ marginRight: "10px" }}>
-          Cập nhật Đại hội cấp xã
-        </button>
-        <button onClick={() => setTab("CapTinh")} style={{ marginRight: "10px" }}>
-          Cập nhật Đại hội cấp tỉnh
-        </button>
-        <button onClick={() => setTab("TaiLieu")}>
-          Cập nhật Tài liệu
-        </button>
-      </div>
+  <button 
+    onClick={() => setTab("CapXa")}
+    style={{
+      marginRight: "10px",
+      color: "white",
+      backgroundColor: "#0288d1",
+      border: "none",
+      padding: "5px 10px",
+      borderRadius: "4px",
+      cursor: "pointer",
+      fontSize: "12px"  // chữ nhỏ hơn
+    }}
+  >
+    Cập nhật Đại hội cấp xã
+  </button>
+
+  <button 
+    onClick={() => setTab("CapTinh")}
+    style={{
+      marginRight: "10px",
+      color: "white",
+      backgroundColor: "#0288d1",
+      border: "none",
+      padding: "5px 10px",
+      borderRadius: "4px",
+      cursor: "pointer",
+      fontSize: "12px"
+    }}
+  >
+    Cập nhật Đại hội cấp tỉnh
+  </button>
+
+  <button 
+    onClick={() => setTab("TaiLieu")}
+    style={{
+      color: "white",
+      backgroundColor: "#0288d1",
+      border: "none",
+      padding: "5px 10px",
+      borderRadius: "4px",
+      cursor: "pointer",
+      fontSize: "12px"
+    }}
+  >
+    Cập nhật Tài liệu
+  </button>
+</div>
+
 
       <div style={{ marginTop: "20px" }}>
         {tab === "CapXa" && <CapXa user={user} />}
@@ -80,7 +118,8 @@ function App() {
       <div className="app">
         <header className="header">
           <img src="/logo-doan.png" alt="Logo đoàn" className="logo" />
-          <h1>Hệ thống Quản lý Đại hội Đoàn</h1>
+          <h1 style={{ color: "rgb(238, 239, 240)" }}>HỆ THỐNG QUẢN LÝ THEO DÕI ĐẠI HỘI ĐOÀN</h1>
+
         </header>
 
         <nav className="navbar">

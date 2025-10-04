@@ -273,3 +273,34 @@ table button:hover {
   background-color: #1976d2;
   color: white;
 }
+body, h1, h2, h3, h4, h5, h6, p, button, input {
+  font-size: 16px;
+  font-weight: normal;
+  color: #000;
+}
+/* --- Màu chữ xanh dương nhã, chuẩn phong cách giao diện Đoàn --- */
+body, h1, h2, h3, h4, h5, h6, p, span, label, button, input, a {
+  color: #375ff1; /* xanh dương nhạt, dễ đọc */
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Giữ cỡ chữ, font mặc định */
+body {
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+/* --- Chỉ đổi màu chữ phần thống kê đại hội --- */
+.stats-section h3,
+.stats-section p,
+.stats-section span {
+  color: #1e88e5; /* Xanh dương Đoàn */
+}

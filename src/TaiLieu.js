@@ -23,7 +23,6 @@ function TaiLieu({ user }) {
       await addDoc(collection(db, "tailieu"), {
         name: tenTaiLieu,
         url: urlTaiLieu,
-        ngay: new Date().toLocaleDateString("vi-VN"),
       });
       setTenTaiLieu("");
       setUrlTaiLieu("");
@@ -46,44 +45,117 @@ function TaiLieu({ user }) {
   };
 
   return (
-    <div>
-      <h2 style={{ color: "#1e88e5" }}>Tài liệu Đại hội</h2>
+    <div style={{ textAlign: "center", padding: "30px" }}>
+      <h2
+        style={{
+          color: "#1565c0",
+          fontSize: "26px",
+          marginBottom: "20px",
+          textTransform: "uppercase",
+          fontWeight: "bold",
+        }}
+      >
+        📚 Tài liệu Đại hội Đoàn
+      </h2>
 
       {user?.role === "tinh-doan" && (
-        <div style={{ marginBottom: "15px" }}>
+        <div style={{ marginBottom: "25px" }}>
           <input
             type="text"
             placeholder="Tên tài liệu"
             value={tenTaiLieu}
-            onChange={e => setTenTaiLieu(e.target.value)}
-            style={{ marginRight: "10px", padding: "5px", width: "200px" }}
+            onChange={(e) => setTenTaiLieu(e.target.value)}
+            style={{
+              marginRight: "10px",
+              padding: "8px",
+              width: "220px",
+              borderRadius: "6px",
+              border: "1px solid #ccc",
+            }}
           />
           <input
             type="text"
-            placeholder="Dán link (Google Drive, v.v.)"
+            placeholder="Link tài liệu (Google Drive, ...)"
             value={urlTaiLieu}
-            onChange={e => setUrlTaiLieu(e.target.value)}
-            style={{ marginRight: "10px", padding: "5px", width: "300px" }}
+            onChange={(e) => setUrlTaiLieu(e.target.value)}
+            style={{
+              marginRight: "10px",
+              padding: "8px",
+              width: "320px",
+              borderRadius: "6px",
+              border: "1px solid #ccc",
+            }}
           />
-          <button onClick={handleUpload}>Lưu</button>
+          <button
+            onClick={handleUpload}
+            style={{
+              padding: "8px 16px",
+              backgroundColor: "#1e88e5",
+              color: "#fff",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+            }}
+          >
+            Lưu
+          </button>
         </div>
       )}
 
-      <ul>
-        {files.map(f => (
-          <li key={f.id} style={{ marginBottom: "8px" }}>
-            <a href={f.url} target="_blank" rel="noreferrer">{f.name}</a>
+      <div
+        style={{
+          maxWidth: "700px",
+          margin: "0 auto",
+          background: "#f9f9f9",
+          padding: "20px",
+          borderRadius: "10px",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+          textAlign: "left", // 👈 chữ trong khung canh trái
+        }}
+      >
+        {files.map((f) => (
+          <div
+            key={f.id}
+            style={{
+              marginBottom: "12px",
+              padding: "10px 15px",
+              borderBottom: "1px solid #ddd",
+              display: "flex",
+              justifyContent: "space-between", // 👈 căn dòng xóa sang phải
+              alignItems: "center",
+            }}
+          >
+            <a
+              href={f.url}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                fontSize: "16px",
+                color: " #0d47a1",
+                fontWeight: "normal",
+                textDecoration: "none",
+              }}
+            >
+              {f.name}
+            </a>
+
             {user?.role === "tinh-doan" && (
               <button
                 onClick={() => handleDelete(f.id)}
-                style={{ marginLeft: "10px", color: "red" }}
+                style={{
+                  background: "none",
+                  color: "red",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                }}
               >
                 Xóa
               </button>
             )}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

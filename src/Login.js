@@ -46,7 +46,19 @@ function Login({ onLogin }) {
         value={password}
         onChange={e => setPassword(e.target.value)}
       /><br/><br/>
-      <button type="submit">Đăng nhập</button>
+      <button
+  type="submit"
+  style={{
+    color: "white",              // màu chữ
+    backgroundColor: "#1976d2",  // màu nền xanh dương đậm
+    border: "none",              // bỏ viền
+    padding: "7px 15px",         // khoảng cách bên trong
+    borderRadius: "4px",         // bo góc
+    cursor: "pointer"            // con trỏ chuột khi hover
+  }}
+>
+  Đăng nhập
+</button>
     </form>
   );
 }
