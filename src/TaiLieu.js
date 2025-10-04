@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { collection, onSnapshot, addDoc, deleteDoc, doc } from "firebase/firestore";
-import { db, storage } from "./firebaseConfig";
-import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
+import { db } from "./firebaseConfig";
 
 function TaiLieu({ user }) {
   const [files, setFiles] = useState([]);
-  const [file, setFile] = useState(null);
   const [tenTaiLieu, setTenTaiLieu] = useState("");
+  const [urlTaiLieu, setUrlTaiLieu] = useState("");
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "tailieu"), snapshot => {
@@ -16,56 +15,72 @@ function TaiLieu({ user }) {
   }, []);
 
   const handleUpload = async () => {
-    if (!file || !tenTaiLieu.trim()) {
-      alert("Chọn file và nhập tên tài liệu!");
+    if (!tenTaiLieu.trim() || !urlTaiLieu.trim()) {
+      alert("⚠️ Nhập đủ TÊN và LINK tài liệu!");
       return;
     }
-    const fileRef = ref(storage, `tailieu/${file.name}`);
     try {
-      await uploadBytes(fileRef, file);
-      const url = await getDownloadURL(fileRef);
-      await addDoc(collection(db, "tailieu"), { name: tenTaiLieu, url });
-      setFile(null);
+      await addDoc(collection(db, "tailieu"), {
+        name: tenTaiLieu,
+        url: urlTaiLieu,
+        ngay: new Date().toLocaleDateString("vi-VN"),
+      });
       setTenTaiLieu("");
-      alert("Upload thành công!");
+      setUrlTaiLieu("");
+      alert("✅ Lưu thành công!");
     } catch (err) {
       console.error(err);
-      alert("Lỗi upload file");
+      alert("❌ Lỗi khi lưu tài liệu!");
     }
   };
 
-  const handleDelete = async (id, fileName) => {
+  const handleDelete = async (id) => {
+    if (!window.confirm("Xóa tài liệu này?")) return;
     try {
       await deleteDoc(doc(db, "tailieu", id));
-      const fileRef = ref(storage, `tailieu/${fileName}`);
-      await deleteObject(fileRef);
-      alert("Xóa thành công!");
+      alert("🗑️ Đã xóa thành công!");
     } catch (err) {
       console.error(err);
-      alert("Lỗi xóa file");
+      alert("❌ Lỗi khi xóa!");
     }
   };
 
   return (
     <div>
       <h2 style={{ color: "#1e88e5" }}>Tài liệu Đại hội</h2>
+
       {user?.role === "tinh-doan" && (
-        <div>
+        <div style={{ marginBottom: "15px" }}>
           <input
             type="text"
             placeholder="Tên tài liệu"
             value={tenTaiLieu}
             onChange={e => setTenTaiLieu(e.target.value)}
+            style={{ marginRight: "10px", padding: "5px", width: "200px" }}
           />
-          <input type="file" onChange={e => setFile(e.target.files[0])} />
-          <button onClick={handleUpload}>Upload</button>
+          <input
+            type="text"
+            placeholder="Dán link (Google Drive, v.v.)"
+            value={urlTaiLieu}
+            onChange={e => setUrlTaiLieu(e.target.value)}
+            style={{ marginRight: "10px", padding: "5px", width: "300px" }}
+          />
+          <button onClick={handleUpload}>Lưu</button>
         </div>
       )}
+
       <ul>
         {files.map(f => (
-          <li key={f.id}>
+          <li key={f.id} style={{ marginBottom: "8px" }}>
             <a href={f.url} target="_blank" rel="noreferrer">{f.name}</a>
-            {user?.role === "tinh-doan" && <button onClick={() => handleDelete(f.id, f.name)}>Xóa</button>}
+            {user?.role === "tinh-doan" && (
+              <button
+                onClick={() => handleDelete(f.id)}
+                style={{ marginLeft: "10px", color: "red" }}
+              >
+                Xóa
+              </button>
+            )}
           </li>
         ))}
       </ul>
