@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { collection, onSnapshot, addDoc, deleteDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  addDoc,
+  deleteDoc,
+  doc,
+  updateDoc,
+  query,
+  orderBy,
+} from "firebase/firestore";
 import { db } from "./firebaseConfig";
 
 function TaiLieu({ user }) {
@@ -7,22 +16,27 @@ function TaiLieu({ user }) {
   const [tenTaiLieu, setTenTaiLieu] = useState("");
   const [urlTaiLieu, setUrlTaiLieu] = useState("");
 
+  // 🔹 Lấy dữ liệu có sắp xếp theo order
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "tailieu"), snapshot => {
-      setFiles(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    const q = query(collection(db, "tailieu"), orderBy("order", "asc"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setFiles(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
     });
     return () => unsubscribe();
   }, []);
 
+  // 🔹 Thêm mới tài liệu
   const handleUpload = async () => {
     if (!tenTaiLieu.trim() || !urlTaiLieu.trim()) {
       alert("⚠️ Nhập đủ TÊN và LINK tài liệu!");
       return;
     }
     try {
+      const maxOrder = files.length > 0 ? Math.max(...files.map((f) => f.order || 0)) : 0;
       await addDoc(collection(db, "tailieu"), {
         name: tenTaiLieu,
         url: urlTaiLieu,
+        order: maxOrder + 1,
       });
       setTenTaiLieu("");
       setUrlTaiLieu("");
@@ -33,6 +47,7 @@ function TaiLieu({ user }) {
     }
   };
 
+  // 🔹 Xóa tài liệu
   const handleDelete = async (id) => {
     if (!window.confirm("Xóa tài liệu này?")) return;
     try {
@@ -41,6 +56,27 @@ function TaiLieu({ user }) {
     } catch (err) {
       console.error(err);
       alert("❌ Lỗi khi xóa!");
+    }
+  };
+
+  // 🔹 Di chuyển thứ tự (lên/xuống)
+  const moveItem = async (index, direction) => {
+    const newIndex = direction === "up" ? index - 1 : index + 1;
+    if (newIndex < 0 || newIndex >= files.length) return; // Giới hạn
+
+    const current = files[index];
+    const target = files[newIndex];
+
+    try {
+      const currentRef = doc(db, "tailieu", current.id);
+      const targetRef = doc(db, "tailieu", target.id);
+      await Promise.all([
+        updateDoc(currentRef, { order: target.order }),
+        updateDoc(targetRef, { order: current.order }),
+      ]);
+    } catch (err) {
+      console.error(err);
+      alert("❌ Lỗi khi thay đổi thứ tự!");
     }
   };
 
@@ -110,10 +146,10 @@ function TaiLieu({ user }) {
           padding: "20px",
           borderRadius: "10px",
           boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-          textAlign: "left", // 👈 chữ trong khung canh trái
+          textAlign: "left",
         }}
       >
-        {files.map((f) => (
+        {files.map((f, index) => (
           <div
             key={f.id}
             style={{
@@ -121,7 +157,7 @@ function TaiLieu({ user }) {
               padding: "10px 15px",
               borderBottom: "1px solid #ddd",
               display: "flex",
-              justifyContent: "space-between", // 👈 căn dòng xóa sang phải
+              justifyContent: "space-between",
               alignItems: "center",
             }}
           >
@@ -131,27 +167,52 @@ function TaiLieu({ user }) {
               rel="noreferrer"
               style={{
                 fontSize: "16px",
-                color: " #0d47a1",
+                color: "#0d47a1",
                 fontWeight: "normal",
                 textDecoration: "none",
+                flex: 1,
               }}
             >
-              {f.name}
+              {index + 1}. {f.name}
             </a>
 
             {user?.role === "tinh-doan" && (
-              <button
-                onClick={() => handleDelete(f.id)}
-                style={{
-                  background: "none",
-                  color: "red",
-                  border: "none",
-                  cursor: "pointer",
-                  fontSize: "14px",
-                }}
-              >
-                Xóa
-              </button>
+              <div style={{ display: "flex", gap: "6px" }}>
+                <button
+                  onClick={() => moveItem(index, "up")}
+                  style={{
+                    border: "none",
+                    background: "none",
+                    cursor: "pointer",
+                    color: "#1565c0",
+                  }}
+                >
+                  🔼
+                </button>
+                <button
+                  onClick={() => moveItem(index, "down")}
+                  style={{
+                    border: "none",
+                    background: "none",
+                    cursor: "pointer",
+                    color: "#1565c0",
+                  }}
+                >
+                  🔽
+                </button>
+                <button
+                  onClick={() => handleDelete(f.id)}
+                  style={{
+                    background: "none",
+                    color: "red",
+                    border: "none",
+                    cursor: "pointer",
+                    fontSize: "14px",
+                  }}
+                >
+                  Xóa
+                </button>
+              </div>
             )}
           </div>
         ))}
