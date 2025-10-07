@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { collection, onSnapshot, addDoc, deleteDoc, doc, query, orderBy, serverTimestamp } from "firebase/firestore";
-
+import { collection, onSnapshot, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 
 function TaiLieu({ user }) {
@@ -8,16 +7,13 @@ function TaiLieu({ user }) {
   const [tenTaiLieu, setTenTaiLieu] = useState("");
   const [urlTaiLieu, setUrlTaiLieu] = useState("");
 
-  // 👉 Hiển thị theo thứ tự CŨ NHẤT lên đầu
   useEffect(() => {
-    const q = query(collection(db, "tailieu"), orderBy("createdAt", "asc"));
-    const unsubscribe = onSnapshot(q, snapshot => {
+    const unsubscribe = onSnapshot(collection(db, "tailieu"), snapshot => {
       setFiles(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
     });
     return () => unsubscribe();
   }, []);
 
-  // 👉 Khi lưu tài liệu, thêm thời gian tạo
   const handleUpload = async () => {
     if (!tenTaiLieu.trim() || !urlTaiLieu.trim()) {
       alert("⚠️ Nhập đủ TÊN và LINK tài liệu!");
@@ -27,7 +23,6 @@ function TaiLieu({ user }) {
       await addDoc(collection(db, "tailieu"), {
         name: tenTaiLieu,
         url: urlTaiLieu,
-        createdAt: serverTimestamp(), // 👈 thêm dòng này để sắp xếp được
       });
       setTenTaiLieu("");
       setUrlTaiLieu("");
