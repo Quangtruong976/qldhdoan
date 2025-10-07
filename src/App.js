@@ -11,6 +11,7 @@ import TaiLieu from "./TaiLieu";
 import Login from "./Login";
 import "./App.css";
 
+
 // Tin tức
 function TinTuc() {
   return (
@@ -140,6 +141,7 @@ function App() {
             <Route path="/tailieu" element={<TaiLieu user={user} />} />
             <Route path="/login" element={<Login onLogin={setUser} />} />
             <Route path="/admin" element={<Admin user={user} />} />
+          
           </Routes>
         </main>
 
