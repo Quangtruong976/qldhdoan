@@ -1,6 +1,15 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { listenDaiHoiXa, updateDaiHoiXa, addDaiHoiXa, deleteDaiHoiXa } from "./services/firestoreService";
 
+function formatDate(dateString) {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  if (isNaN(date)) return dateString; // đề phòng dữ liệu lỗi
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+}
 function CapXa({ user }) {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
@@ -12,10 +21,17 @@ function CapXa({ user }) {
   }, []);
 
   const filteredData = useMemo(() => {
-    return data.filter(row =>
-      row.donvi?.toLowerCase().includes(search.toLowerCase())
-    );
+    return data
+      .filter(row =>
+        row.donvi?.toLowerCase().includes(search.toLowerCase())
+      )
+      .sort((a, b) => {
+        if (!a.ngay) return 1;  // xã chưa nhập ngày cho xuống cuối
+        if (!b.ngay) return -1;
+        return new Date(a.ngay) - new Date(b.ngay); // sắp xếp tăng dần theo ngày
+      });
   }, [data, search]);
+  
 
   const handleChange = useCallback((id, field, value) => {
     setData(prev =>
@@ -137,7 +153,7 @@ function CapXa({ user }) {
               style={{ color: textColor }}
             />
           ) : (
-            row.ngay
+            formatDate(row.ngay)
           )}
         </td>
         <td>
