@@ -23,7 +23,7 @@ function TinTuc() {
     <div className="tintuc">
       <h2 style={{ marginBottom: "20px", color: "#1e88e5" }}>Tin tức Đại hội</h2>
       <iframe
-        src="https://tinhdoan.lamdong.gov.vn"
+        src="https://lamdong.gov.vn/sites/tinhdoan/dai-hoi-dai-bieu/SitePages/Home.aspx"
         width="100%"
         height="600px"
         style={{
